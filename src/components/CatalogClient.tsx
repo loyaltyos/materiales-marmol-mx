@@ -1,7 +1,15 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
-import { categories, formatCurrency, products } from "@/lib/products";
+import { useCart } from "@/components/CartProvider";
+import {
+  categories,
+  formatCurrency,
+  getUnitLabel,
+  products,
+} from "@/lib/products";
 
 type Quantities = Record<string, number>;
 
@@ -10,23 +18,35 @@ const initialQuantities = products.reduce<Quantities>((acc, product) => {
   return acc;
 }, {});
 
-export function CatalogClient() {
-  const [activeCategory, setActiveCategory] = useState("Todos");
+type CatalogClientProps = {
+  initialCategory?: string;
+  initialSearch?: string;
+};
+
+export function CatalogClient({
+  initialCategory = "Todos",
+  initialSearch = "",
+}: CatalogClientProps) {
+  const { addItem, itemCount, formattedTotal } = useCart();
+  const [activeCategory, setActiveCategory] = useState(initialCategory || "Todos");
+  const [search, setSearch] = useState(initialSearch);
   const [quantities, setQuantities] = useState<Quantities>(initialQuantities);
 
   const visibleProducts = useMemo(() => {
-    if (activeCategory === "Todos") {
-      return products;
-    }
+    const normalizedSearch = search.trim().toLowerCase();
 
-    return products.filter((product) => product.category === activeCategory);
-  }, [activeCategory]);
+    return products.filter((product) => {
+      const matchesCategory =
+        activeCategory === "Todos" || product.category === activeCategory;
+      const matchesSearch =
+        normalizedSearch.length === 0 ||
+        `${product.name} ${product.category} ${product.description}`
+          .toLowerCase()
+          .includes(normalizedSearch);
 
-  const selectedProducts = products.filter((product) => quantities[product.id] > 0);
-  const total = selectedProducts.reduce(
-    (sum, product) => sum + product.price * quantities[product.id],
-    0,
-  );
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, search]);
 
   function updateQuantity(productId: string, value: number) {
     const product = products.find((item) => item.id === productId);
@@ -35,151 +55,156 @@ export function CatalogClient() {
       return;
     }
 
-    const normalized = Math.max(0, Math.round(value / product.step) * product.step);
+    const normalized = Math.max(
+      product.step,
+      Math.round(value / product.step) * product.step,
+    );
+
     setQuantities((current) => ({ ...current, [productId]: normalized }));
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
-      <div>
-        <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
-          {["Todos", ...categories].map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={`shrink-0 border px-4 py-3 text-sm font-black uppercase tracking-[0.14em] transition ${
-                activeCategory === category
-                  ? "border-[#F97316] bg-[#F97316] text-[#2B2B2B]"
-                  : "border-[#D4D4D4] bg-white text-[#4A4A4A] hover:border-[#F97316]"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          {visibleProducts.map((product) => {
-            const quantity = quantities[product.id] ?? 0;
-            const subtotal = quantity * product.price;
-
-            return (
-              <article
-                key={product.id}
-                className="border border-[#D4D4D4] bg-white p-5 shadow-sm"
+    <div className="grid gap-8">
+      <section className="border border-[#D8D8D8] bg-white p-4 shadow-sm">
+        <div className="grid gap-4 lg:grid-cols-[1fr_280px] lg:items-center">
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {["Todos", ...categories].map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`shrink-0 px-4 py-3 text-xs font-black uppercase tracking-[0.12em] transition ${
+                  activeCategory === category
+                    ? "bg-[#2B2B2B] text-white"
+                    : "bg-[#F5F5F5] text-[#4A4A4A] hover:bg-[#F97316] hover:text-[#2B2B2B]"
+                }`}
               >
-                <div className="flex min-h-36 flex-col justify-between gap-5">
-                  <div>
-                    <div className="mb-3 flex items-center justify-between gap-4">
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#F97316]">
-                        {product.category}
-                      </p>
-                      <p className="bg-[#2B2B2B] px-2 py-1 text-xs font-black text-white">
-                        {formatCurrency(product.price)}
-                      </p>
-                    </div>
-                    <h3 className="text-xl font-black uppercase text-[#2B2B2B]">
-                      {product.name}
-                    </h3>
-                    <p className="mt-3 text-sm leading-6 text-[#4A4A4A]">
-                      {product.description}
-                    </p>
-                  </div>
-
-                  <div className="border-t border-[#E5E5E5] pt-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <button
-                        type="button"
-                        aria-label={`Disminuir cantidad de ${product.name}`}
-                        onClick={() =>
-                          updateQuantity(product.id, quantity - product.step)
-                        }
-                        className="grid h-11 w-11 place-items-center border border-[#BDBDBD] text-xl font-black text-[#2B2B2B] transition hover:border-[#F97316] hover:bg-[#F97316]"
-                      >
-                        -
-                      </button>
-                      <label className="min-w-0 flex-1">
-                        <span className="sr-only">Cantidad de {product.name}</span>
-                        <input
-                          type="number"
-                          min={0}
-                          step={product.step}
-                          value={quantity}
-                          onChange={(event) =>
-                            updateQuantity(product.id, Number(event.target.value))
-                          }
-                          className="h-11 w-full border border-[#BDBDBD] bg-[#F5F5F5] px-3 text-center text-lg font-black text-[#2B2B2B] outline-none focus:border-[#F97316]"
-                        />
-                      </label>
-                      <button
-                        type="button"
-                        aria-label={`Incrementar cantidad de ${product.name}`}
-                        onClick={() =>
-                          updateQuantity(product.id, quantity + product.step)
-                        }
-                        className="grid h-11 w-11 place-items-center border border-[#BDBDBD] text-xl font-black text-[#2B2B2B] transition hover:border-[#F97316] hover:bg-[#F97316]"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between gap-3 text-sm">
-                      <span className="font-bold text-[#4A4A4A]">
-                        {quantity} {product.unit}
-                        {quantity === 1 ? "" : "s"}
-                      </span>
-                      <span className="font-black text-[#2B2B2B]">
-                        Subtotal: {formatCurrency(subtotal)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+                {category}
+              </button>
+            ))}
+          </div>
+          <label className="block">
+            <span className="sr-only">Buscar en catalogo</span>
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Buscar producto"
+              className="h-12 w-full border border-[#CFCFCF] bg-[#F5F5F5] px-4 text-sm font-semibold outline-none focus:border-[#F97316]"
+            />
+          </label>
         </div>
+      </section>
+
+      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+        <p className="text-sm font-bold text-[#4A4A4A]">
+          {visibleProducts.length} productos disponibles
+        </p>
+        <Link
+          href="/carrito"
+          className="inline-flex min-h-11 items-center justify-center bg-[#2B2B2B] px-4 text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-[#F97316] hover:text-[#2B2B2B]"
+        >
+          Ver carrito: {itemCount} items / {formattedTotal}
+        </Link>
       </div>
 
-      <aside className="h-fit border border-[#2B2B2B] bg-[#2B2B2B] p-5 text-white lg:sticky lg:top-28">
-        <p className="text-sm font-black uppercase tracking-[0.2em] text-[#F97316]">
-          Carrito de materiales
-        </p>
-        <h2 className="mt-3 text-2xl font-black uppercase">Solicitud por volumen</h2>
-        <div className="mt-5 max-h-80 space-y-4 overflow-auto border-y border-white/12 py-4">
-          {selectedProducts.length > 0 ? (
-            selectedProducts.map((product) => (
-              <div key={product.id} className="flex justify-between gap-4 text-sm">
-                <div>
-                  <p className="font-bold">{product.name}</p>
-                  <p className="mt-1 text-white/58">
-                    {quantities[product.id]} {product.unit}
-                    {quantities[product.id] === 1 ? "" : "s"}
-                  </p>
-                </div>
-                <p className="font-black text-[#F97316]">
-                  {formatCurrency(product.price * quantities[product.id])}
+      <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {visibleProducts.map((product) => {
+          const quantity = quantities[product.id] ?? product.step;
+
+          return (
+            <article
+              key={product.id}
+              className="flex min-h-full flex-col overflow-hidden border border-[#D8D8D8] bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-[#F97316] hover:shadow-lg"
+            >
+              <div className="relative h-40 bg-[#D9D9D9]">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                  style={{ objectPosition: product.imagePosition }}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,43,43,0)_40%,rgba(43,43,43,0.62)_100%)]" />
+                <p className="absolute bottom-3 left-3 bg-[#F97316] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#2B2B2B]">
+                  {product.category}
                 </p>
               </div>
-            ))
-          ) : (
-            <p className="text-sm text-white/62">Ajusta cantidades para cotizar.</p>
-          )}
-        </div>
-        <div className="mt-5 flex items-center justify-between text-lg font-black">
-          <span>Total estimado</span>
-          <span>{formatCurrency(total)}</span>
-        </div>
-        <p className="mt-4 text-xs leading-5 text-white/62">
-          Los precios son de referencia. La cotizacion final se confirma segun
-          disponibilidad, volumen, transporte y ubicacion.
-        </p>
-        <a
-          href="/cotizaciones"
-          className="mt-5 block bg-[#F97316] px-5 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-[#2B2B2B] transition hover:bg-white"
-        >
-          Solicitar cotizacion
-        </a>
-      </aside>
+
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-lg font-black uppercase leading-snug text-[#2B2B2B]">
+                  {product.name}
+                </h3>
+                <p className="mt-2 min-h-12 text-sm leading-6 text-[#4A4A4A]">
+                  {product.description}
+                </p>
+
+                <div className="mt-4 flex items-end justify-between gap-4 border-t border-[#E5E5E5] pt-4">
+                  <div>
+                    <p className="text-2xl font-black text-[#2B2B2B]">
+                      {formatCurrency(product.price)}
+                    </p>
+                    <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#7A7A7A]">
+                      por {product.unit}
+                    </p>
+                  </div>
+                  <p className="text-right text-xs font-bold text-[#7A7A7A]">
+                    Min. sugerido
+                    <span className="block text-[#2B2B2B]">
+                      {product.step} {getUnitLabel(product.unit, product.step)}
+                    </span>
+                  </p>
+                </div>
+
+                <div className="mt-5 grid grid-cols-[44px_1fr_44px] border border-[#CFCFCF]">
+                  <button
+                    type="button"
+                    aria-label={`Disminuir cantidad de ${product.name}`}
+                    onClick={() => updateQuantity(product.id, quantity - product.step)}
+                    className="h-11 bg-[#F5F5F5] text-xl font-black transition hover:bg-[#F97316]"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min={product.step}
+                    step={product.step}
+                    value={quantity}
+                    onChange={(event) =>
+                      updateQuantity(product.id, Number(event.target.value))
+                    }
+                    className="h-11 min-w-0 border-x border-[#CFCFCF] text-center text-base font-black outline-none"
+                  />
+                  <button
+                    type="button"
+                    aria-label={`Incrementar cantidad de ${product.name}`}
+                    onClick={() => updateQuantity(product.id, quantity + product.step)}
+                    className="h-11 bg-[#F5F5F5] text-xl font-black transition hover:bg-[#F97316]"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <p className="mt-3 text-sm font-bold text-[#4A4A4A]">
+                  Subtotal:{" "}
+                  <span className="text-[#2B2B2B]">
+                    {formatCurrency(product.price * quantity)}
+                  </span>
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => addItem(product.id, quantity)}
+                  className="mt-5 min-h-12 bg-[#F97316] px-4 text-sm font-black uppercase tracking-[0.12em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </section>
     </div>
   );
 }

@@ -1,16 +1,28 @@
 import { CatalogClient } from "@/components/CatalogClient";
 import { SectionHeader } from "@/components/SectionHeader";
 
-export default function CatalogoPage() {
+type CatalogoPageProps = {
+  searchParams: Promise<{
+    categoria?: string;
+    q?: string;
+  }>;
+};
+
+export default async function CatalogoPage({ searchParams }: CatalogoPageProps) {
+  const params = await searchParams;
+
   return (
-    <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <SectionHeader
         eyebrow="Catalogo"
-        title="Productos para construccion, obra civil y remodelacion"
-        description="Selecciona cantidades reales de obra, revisa subtotales por material y solicita una cotizacion con coordinacion logistica."
+        title="Compra materiales para construccion"
+        description="Elige productos, ajusta cantidades de obra y agregalos al carrito para finalizar tu pedido online o solicitar una cotizacion especial."
       />
       <div className="mt-10">
-        <CatalogClient />
+        <CatalogClient
+          initialCategory={params.categoria}
+          initialSearch={params.q}
+        />
       </div>
     </main>
   );

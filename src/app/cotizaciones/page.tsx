@@ -15,18 +15,17 @@ export default function CotizacionesPage() {
       <div>
         <SectionHeader
           eyebrow="Cotizaciones"
-          title="Solicita materiales por volumen de obra"
-          description="Compartenos los materiales, cantidades y datos de entrega para preparar una cotizacion alineada a tu proyecto."
+          title="Cotizacion personalizada para volumen especial"
+          description="Necesitas volumen especial o materiales para obra completa? Solicita una cotizacion personalizada para compras grandes, proyectos industriales o productos no publicados."
         />
         <div className="mt-8 border-l-4 border-[#F97316] bg-white p-6">
           <p className="font-black uppercase tracking-[0.14em] text-[#2B2B2B]">
             Logistica incluida en el seguimiento
           </p>
           <p className="mt-3 text-sm leading-6 text-[#4A4A4A]">
-            Los costos de envio pueden variar segun el volumen, peso y ubicacion
-            de entrega. Una vez realizada la compra, uno de nuestros asesores se
-            comunicara para coordinar la logistica, tiempos de entrega y
-            requerimientos especiales de transporte.
+            Para compras directas usa el catalogo y carrito. Este formulario es
+            ideal para volumen industrial, obra completa, entregas especiales o
+            materiales que aun no aparecen en la tienda.
           </p>
         </div>
       </div>
