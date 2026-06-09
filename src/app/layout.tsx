@@ -39,7 +39,7 @@ export default function RootLayout({
           <a
             href="https://wa.me/525573328442"
             aria-label="Enviar mensaje por WhatsApp"
-            className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center bg-[#F97316] text-lg font-black text-[#2B2B2B] shadow-2xl shadow-black/25 transition hover:scale-105"
+            className="fixed bottom-5 right-5 z-50 hidden h-14 w-14 place-items-center rounded-2xl bg-[#F97316] text-lg font-black text-[#2B2B2B] shadow-2xl shadow-black/25 transition hover:scale-105 sm:grid"
           >
             WA
           </a>

@@ -65,18 +65,18 @@ export function CatalogClient({
 
   return (
     <div className="grid gap-8">
-      <section className="border border-[#D8D8D8] bg-white p-4 shadow-sm">
+      <section className="rounded-3xl border border-black/10 bg-white p-4 shadow-sm">
         <div className="grid gap-4 lg:grid-cols-[1fr_280px] lg:items-center">
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex flex-wrap gap-2">
             {["Todos", ...categories].map((category) => (
               <button
                 key={category}
                 type="button"
                 onClick={() => setActiveCategory(category)}
-                className={`shrink-0 px-4 py-3 text-xs font-black uppercase tracking-[0.12em] transition ${
+                className={`rounded-full px-4 py-3 text-xs font-black uppercase tracking-[0.1em] transition ${
                   activeCategory === category
-                    ? "bg-[#2B2B2B] text-white"
-                    : "bg-[#F5F5F5] text-[#4A4A4A] hover:bg-[#F97316] hover:text-[#2B2B2B]"
+                    ? "bg-[#2B2B2B] text-white shadow-sm"
+                    : "bg-[#F5F5F5] text-[#4A4A4A] hover:bg-[#FFF1E8] hover:text-[#F97316]"
                 }`}
               >
                 {category}
@@ -90,7 +90,7 @@ export function CatalogClient({
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Buscar producto"
-              className="h-12 w-full border border-[#CFCFCF] bg-[#F5F5F5] px-4 text-sm font-semibold outline-none focus:border-[#F97316]"
+              className="h-12 w-full rounded-full border border-[#CFCFCF] bg-[#F5F5F5] px-5 text-sm font-semibold outline-none transition focus:border-[#F97316] focus:bg-white"
             />
           </label>
         </div>
@@ -102,7 +102,7 @@ export function CatalogClient({
         </p>
         <Link
           href="/carrito"
-          className="inline-flex min-h-11 items-center justify-center bg-[#2B2B2B] px-4 text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-[#F97316] hover:text-[#2B2B2B]"
+          className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#2B2B2B] px-5 text-sm font-black uppercase tracking-[0.1em] text-white shadow-sm transition hover:bg-[#F97316] hover:text-[#2B2B2B]"
         >
           Ver carrito: {itemCount} items / {formattedTotal}
         </Link>
@@ -115,7 +115,7 @@ export function CatalogClient({
           return (
             <article
               key={product.id}
-              className="flex min-h-full flex-col overflow-hidden border border-[#D8D8D8] bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-[#F97316] hover:shadow-lg"
+              className="flex min-h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:border-[#F97316] hover:shadow-xl"
             >
               <div className="relative h-40 bg-[#D9D9D9]">
                 <Image
@@ -127,7 +127,7 @@ export function CatalogClient({
                   style={{ objectPosition: product.imagePosition }}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,43,43,0)_40%,rgba(43,43,43,0.62)_100%)]" />
-                <p className="absolute bottom-3 left-3 bg-[#F97316] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#2B2B2B]">
+                <p className="absolute bottom-3 left-3 rounded-full bg-[#F97316] px-3 py-1 text-xs font-black uppercase tracking-[0.1em] text-[#2B2B2B]">
                   {product.category}
                 </p>
               </div>
@@ -157,7 +157,7 @@ export function CatalogClient({
                   </p>
                 </div>
 
-                <div className="mt-5 grid grid-cols-[44px_1fr_44px] border border-[#CFCFCF]">
+                <div className="mt-5 grid grid-cols-[44px_1fr_44px] overflow-hidden rounded-full border border-[#CFCFCF]">
                   <button
                     type="button"
                     aria-label={`Disminuir cantidad de ${product.name}`}
@@ -196,7 +196,7 @@ export function CatalogClient({
                 <button
                   type="button"
                   onClick={() => addItem(product.id, quantity)}
-                  className="mt-5 min-h-12 bg-[#F97316] px-4 text-sm font-black uppercase tracking-[0.12em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white"
+                  className="mt-5 min-h-12 rounded-full bg-[#F97316] px-4 text-sm font-black uppercase tracking-[0.1em] text-[#2B2B2B] shadow-sm transition hover:bg-[#2B2B2B] hover:text-white"
                 >
                   Agregar al carrito
                 </button>

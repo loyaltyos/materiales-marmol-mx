@@ -13,7 +13,7 @@ const advantages = [
 export default function Home() {
   return (
     <main>
-      <section className="relative isolate min-h-[calc(100vh-86px)] overflow-hidden bg-[#2B2B2B] text-white">
+      <section className="relative isolate min-h-[680px] overflow-hidden bg-[#2B2B2B] text-white">
         <Image
           src="/hero-industrial.png"
           alt="Patio industrial con materiales de construccion, block, cemento, grava y transporte"
@@ -21,29 +21,30 @@ export default function Home() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(43,43,43,0.96)_0%,rgba(43,43,43,0.82)_42%,rgba(43,43,43,0.24)_100%)]" />
-        <div className="relative mx-auto flex min-h-[calc(100vh-86px)] max-w-7xl items-center px-4 py-16 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="border-l-4 border-[#F97316] pl-4 text-sm font-black uppercase tracking-[0.24em] text-[#F97316]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,28,28,0.94)_0%,rgba(43,43,43,0.78)_48%,rgba(43,43,43,0.18)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_42%,rgba(249,115,22,0.18),transparent_30%)]" />
+        <div className="relative mx-auto flex min-h-[680px] max-w-7xl items-center px-4 py-16 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#F97316] shadow-sm backdrop-blur">
               Proveedor industrial para obra
             </p>
-            <h1 className="mt-6 text-4xl font-black uppercase leading-[1.04] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 text-4xl font-black uppercase leading-[1.06] sm:text-5xl lg:text-6xl">
               Materiales para Construccion y Obra Civil
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/78">
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/78">
               Proveemos materiales de calidad para proyectos residenciales,
               comerciales e industriales en todo Mexico.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/catalogo"
-                className="bg-[#F97316] px-6 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-[#2B2B2B] transition hover:bg-white"
+                className="rounded-full bg-[#F97316] px-6 py-4 text-center text-sm font-black uppercase tracking-[0.13em] text-[#2B2B2B] shadow-[0_18px_35px_rgba(249,115,22,0.25)] transition hover:-translate-y-0.5 hover:bg-white"
               >
                 Ver Catalogo
               </Link>
               <Link
                 href="/cotizaciones"
-                className="border border-white/35 px-6 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-[#F97316] hover:text-[#F97316]"
+                className="rounded-full border border-white/30 bg-white/10 px-6 py-4 text-center text-sm font-black uppercase tracking-[0.13em] text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-[#F97316] hover:text-[#F97316]"
               >
                 Solicitar Cotizacion
               </Link>
@@ -81,7 +82,7 @@ export default function Home() {
               <Link
                 key={category}
                 href="/catalogo"
-                className="group border border-[#D4D4D4] bg-white p-6 transition hover:border-[#F97316] hover:bg-[#2B2B2B]"
+                className="group rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[#F97316] hover:bg-[#2B2B2B] hover:shadow-xl"
               >
                 <p className="text-sm font-black uppercase tracking-[0.2em] text-[#F97316]">
                   {count} productos

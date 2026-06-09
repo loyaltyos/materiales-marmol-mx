@@ -59,7 +59,7 @@ export default function CheckoutPage() {
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_380px]">
         <form
           onSubmit={handleSubmit}
-          className="border border-[#D8D8D8] bg-white p-5 shadow-sm sm:p-7"
+          className="rounded-3xl border border-black/10 bg-white p-5 shadow-sm sm:p-7"
         >
           <h2 className="text-xl font-black uppercase text-[#2B2B2B]">
             Datos del cliente
@@ -74,7 +74,7 @@ export default function CheckoutPage() {
                   required
                   name={field.name}
                   type={field.type}
-                  className="mt-2 h-12 w-full border border-[#CFCFCF] bg-[#F5F5F5] px-4 font-semibold outline-none focus:border-[#F97316]"
+                  className="mt-2 h-12 w-full rounded-2xl border border-[#CFCFCF] bg-[#F5F5F5] px-4 font-semibold outline-none transition focus:border-[#F97316] focus:bg-white"
                 />
               </label>
             ))}
@@ -87,15 +87,15 @@ export default function CheckoutPage() {
             <textarea
               name="comentarios"
               rows={5}
-              className="mt-2 w-full border border-[#CFCFCF] bg-[#F5F5F5] px-4 py-3 font-semibold outline-none focus:border-[#F97316]"
+              className="mt-2 w-full rounded-2xl border border-[#CFCFCF] bg-[#F5F5F5] px-4 py-3 font-semibold outline-none transition focus:border-[#F97316] focus:bg-white"
             />
           </label>
 
-          <section className="mt-7 border border-[#D8D8D8] bg-[#F5F5F5] p-5">
+          <section className="mt-7 rounded-3xl border border-black/10 bg-[#F5F5F5] p-5">
             <p className="text-sm font-black uppercase tracking-[0.16em] text-[#2B2B2B]">
               Metodo de pago
             </p>
-            <label className="mt-4 flex items-start gap-3 bg-white p-4">
+            <label className="mt-4 flex items-start gap-3 rounded-2xl bg-white p-4 shadow-sm">
               <input
                 defaultChecked
                 type="radio"
@@ -116,7 +116,7 @@ export default function CheckoutPage() {
           </section>
 
           {message ? (
-            <div className="mt-5 border-l-4 border-[#F97316] bg-[#FFF7ED] p-4 text-sm font-bold text-[#2B2B2B]">
+            <div className="mt-5 rounded-2xl border-l-4 border-[#F97316] bg-[#FFF7ED] p-4 text-sm font-bold text-[#2B2B2B]">
               {message}
             </div>
           ) : null}
@@ -124,13 +124,13 @@ export default function CheckoutPage() {
           <button
             type="submit"
             disabled={items.length === 0}
-            className="mt-6 min-h-12 w-full bg-[#F97316] px-6 text-sm font-black uppercase tracking-[0.14em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white disabled:cursor-not-allowed disabled:bg-[#D8D8D8] disabled:text-[#7A7A7A]"
+            className="mt-6 min-h-12 w-full rounded-full bg-[#F97316] px-6 text-sm font-black uppercase tracking-[0.1em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white disabled:cursor-not-allowed disabled:bg-[#D8D8D8] disabled:text-[#7A7A7A]"
           >
             Pagar pedido
           </button>
         </form>
 
-        <aside className="h-fit border border-[#2B2B2B] bg-white p-5 shadow-sm lg:sticky lg:top-48">
+        <aside className="h-fit rounded-3xl border border-black/10 bg-white p-5 shadow-sm lg:sticky lg:top-36">
           <h2 className="text-xl font-black uppercase text-[#2B2B2B]">
             Resumen de productos
           </h2>
@@ -138,7 +138,7 @@ export default function CheckoutPage() {
             {items.length > 0 ? (
               items.map((item) => (
                 <div key={item.product.id} className="grid grid-cols-[64px_1fr] gap-3">
-                  <div className="relative h-16 overflow-hidden bg-[#D9D9D9]">
+                  <div className="relative h-16 overflow-hidden rounded-2xl bg-[#D9D9D9]">
                     <Image
                       src={item.product.image}
                       alt={item.product.name}
@@ -175,7 +175,7 @@ export default function CheckoutPage() {
           </p>
           <Link
             href="/carrito"
-            className="mt-5 flex min-h-11 items-center justify-center border border-[#CFCFCF] text-sm font-black uppercase tracking-[0.12em] text-[#4A4A4A] transition hover:border-[#F97316] hover:text-[#2B2B2B]"
+            className="mt-5 flex min-h-11 items-center justify-center rounded-full border border-[#CFCFCF] text-sm font-black uppercase tracking-[0.1em] text-[#4A4A4A] transition hover:border-[#F97316] hover:text-[#2B2B2B]"
           >
             Volver al carrito
           </Link>

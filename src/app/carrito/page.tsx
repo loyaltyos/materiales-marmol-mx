@@ -21,14 +21,14 @@ export default function CarritoPage() {
         </div>
         <Link
           href="/catalogo"
-          className="inline-flex min-h-11 items-center justify-center border border-[#CFCFCF] bg-white px-4 text-sm font-black uppercase tracking-[0.12em] text-[#4A4A4A] transition hover:border-[#F97316] hover:text-[#2B2B2B]"
+          className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#CFCFCF] bg-white px-5 text-sm font-black uppercase tracking-[0.1em] text-[#4A4A4A] shadow-sm transition hover:border-[#F97316] hover:text-[#2B2B2B]"
         >
           Seguir comprando
         </Link>
       </div>
 
       {items.length === 0 ? (
-        <section className="mt-8 border border-[#D8D8D8] bg-white p-8 text-center">
+        <section className="mt-8 rounded-3xl border border-black/10 bg-white p-8 text-center shadow-sm">
           <h2 className="text-2xl font-black uppercase text-[#2B2B2B]">
             Tu carrito esta vacio
           </h2>
@@ -38,7 +38,7 @@ export default function CarritoPage() {
           </p>
           <Link
             href="/catalogo"
-            className="mt-6 inline-flex min-h-12 items-center bg-[#F97316] px-6 text-sm font-black uppercase tracking-[0.12em] text-[#2B2B2B]"
+            className="mt-6 inline-flex min-h-12 items-center rounded-full bg-[#F97316] px-6 text-sm font-black uppercase tracking-[0.1em] text-[#2B2B2B]"
           >
             Ver catalogo
           </Link>
@@ -49,9 +49,9 @@ export default function CarritoPage() {
             {items.map((item) => (
               <article
                 key={item.product.id}
-                className="grid gap-4 border border-[#D8D8D8] bg-white p-4 shadow-sm sm:grid-cols-[120px_1fr] lg:grid-cols-[120px_1fr_180px]"
+                className="grid gap-4 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[120px_1fr] lg:grid-cols-[120px_1fr_180px]"
               >
-                <div className="relative h-28 overflow-hidden bg-[#D9D9D9]">
+                <div className="relative h-28 overflow-hidden rounded-2xl bg-[#D9D9D9]">
                   <Image
                     src={item.product.image}
                     alt={item.product.name}
@@ -83,7 +83,7 @@ export default function CarritoPage() {
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-[160px_1fr] sm:items-center lg:block">
-                  <div className="grid grid-cols-[40px_1fr_40px] border border-[#CFCFCF]">
+                  <div className="grid grid-cols-[40px_1fr_40px] overflow-hidden rounded-full border border-[#CFCFCF]">
                     <button
                       type="button"
                       aria-label={`Disminuir ${item.product.name}`}
@@ -129,7 +129,7 @@ export default function CarritoPage() {
             ))}
           </section>
 
-          <aside className="h-fit border border-[#2B2B2B] bg-white p-5 shadow-sm lg:sticky lg:top-48">
+          <aside className="h-fit rounded-3xl border border-black/10 bg-white p-5 shadow-sm lg:sticky lg:top-36">
             <h2 className="text-2xl font-black uppercase text-[#2B2B2B]">
               Pedido
             </h2>
@@ -158,14 +158,14 @@ export default function CarritoPage() {
             </p>
             <Link
               href="/checkout"
-              className="mt-5 flex min-h-12 items-center justify-center bg-[#F97316] px-5 text-center text-sm font-black uppercase tracking-[0.12em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white"
+              className="mt-5 flex min-h-12 items-center justify-center rounded-full bg-[#F97316] px-5 text-center text-sm font-black uppercase tracking-[0.1em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white"
             >
               Finalizar compra
             </Link>
             <button
               type="button"
               onClick={clearCart}
-              className="mt-3 min-h-11 w-full border border-[#CFCFCF] text-sm font-black uppercase tracking-[0.12em] text-[#4A4A4A] transition hover:border-[#F97316] hover:text-[#2B2B2B]"
+              className="mt-3 min-h-11 w-full rounded-full border border-[#CFCFCF] text-sm font-black uppercase tracking-[0.1em] text-[#4A4A4A] transition hover:border-[#F97316] hover:text-[#2B2B2B]"
             >
               Vaciar carrito
             </button>
@@ -173,7 +173,7 @@ export default function CarritoPage() {
         </div>
       )}
 
-      <section className="mt-8 border-l-4 border-[#F97316] bg-white p-6">
+      <section className="mt-8 rounded-3xl border border-black/10 border-l-[#F97316] border-l-4 bg-white p-6 shadow-sm">
         <h2 className="font-black uppercase tracking-[0.14em] text-[#2B2B2B]">
           Envios y logistica
         </h2>
