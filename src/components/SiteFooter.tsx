@@ -26,7 +26,9 @@ export function SiteFooter() {
           <div className="mt-6 flex flex-wrap gap-2 text-xs font-black uppercase tracking-[0.12em]">
             <span className="bg-white px-3 py-2 text-[#2B2B2B]">Visa</span>
             <span className="bg-white px-3 py-2 text-[#2B2B2B]">Mastercard</span>
-            <span className="bg-white px-3 py-2 text-[#2B2B2B]">Mercado Pago</span>
+            <span className="bg-white px-3 py-2 text-[#2B2B2B]">
+              Mercado Pago pendiente
+            </span>
           </div>
         </div>
 

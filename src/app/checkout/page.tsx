@@ -37,7 +37,7 @@ export default function CheckoutPage() {
     const data = (await response.json()) as { message?: string };
     setMessage(
       data.message ??
-        "Pago pendiente de integracion. Tu pedido no fue cobrado.",
+        "Pago pendiente de integración. Un asesor se comunicará contigo para finalizar la compra.",
     );
   }
 
@@ -51,8 +51,8 @@ export default function CheckoutPage() {
           Finalizar compra
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-[#4A4A4A]">
-          Captura tus datos de entrega y revisa el resumen. Mercado Pago queda
-          preparado para integracion futura sin realizar cobros en este modo.
+          Captura tus datos de entrega y revisa el resumen. El cobro en linea
+          queda pendiente mientras se completa la integracion de Mercado Pago.
         </p>
       </div>
 
@@ -108,8 +108,8 @@ export default function CheckoutPage() {
                   Tarjeta de credito o debito
                 </span>
                 <span className="mt-1 block text-sm leading-6 text-[#4A4A4A]">
-                  Mercado Pago pendiente de integracion. No se cobra realmente
-                  hasta configurar credenciales.
+                  Pago pendiente de integración. Un asesor se comunicará contigo
+                  para finalizar la compra.
                 </span>
               </span>
             </label>
@@ -126,7 +126,7 @@ export default function CheckoutPage() {
             disabled={items.length === 0}
             className="mt-6 min-h-12 w-full rounded-full bg-[#F97316] px-6 text-sm font-black uppercase tracking-[0.1em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white disabled:cursor-not-allowed disabled:bg-[#D8D8D8] disabled:text-[#7A7A7A]"
           >
-            Pagar pedido
+            Enviar pedido
           </button>
         </form>
 

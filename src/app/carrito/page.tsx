@@ -154,7 +154,8 @@ export default function CarritoPage() {
               </div>
             </div>
             <p className="mt-4 text-sm font-bold text-[#4A4A4A]">
-              Paga con tarjeta de credito o debito.
+              El pago en linea queda pendiente de integracion. Un asesor dara
+              seguimiento para finalizar la compra.
             </p>
             <Link
               href="/checkout"
