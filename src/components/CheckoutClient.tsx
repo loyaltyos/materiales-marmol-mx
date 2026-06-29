@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ComponentProps, FormEvent, useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/CartProvider";
+import type { MercadoPagoMode } from "@/lib/mercadopago-credentials";
 import { formatCurrency } from "@/lib/products";
 
 type CustomerData = {
@@ -31,7 +32,12 @@ const fields = [
   { label: "Ciudad / Estado", name: "city", type: "text", autoComplete: "address-level2" },
 ] as const;
 
-export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
+type CheckoutClientProps = {
+  publicKey: string | null;
+  mode: MercadoPagoMode | null;
+};
+
+export function CheckoutClient({ publicKey, mode }: CheckoutClientProps) {
   const router = useRouter();
   const { items, total } = useCart();
   const [quote, setQuote] = useState<Quote | null>(null);
@@ -122,7 +128,11 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
           Captura tus datos de entrega y paga sin salir de esta página mediante Mercado Pago.
         </p>
         </div>
-        <p className="inline-flex w-fit rounded-xl border border-[#F97316]/20 bg-[#FFF7ED] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#C2410C]">Sandbox · Sin cargos reales</p>
+        {mode === "sandbox" ? (
+          <p className="inline-flex w-fit rounded-xl border border-[#F97316]/20 bg-[#FFF7ED] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#C2410C]">Entorno de prueba · Sin cargos reales</p>
+        ) : (
+          <p className="inline-flex w-fit rounded-xl border border-emerald-600/15 bg-emerald-50 px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700">Pago seguro · Mercado Pago</p>
+        )}
       </div>
 
       <div className="mt-8 grid gap-7 lg:grid-cols-[minmax(0,1fr)_380px]">
@@ -155,7 +165,7 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
               </label>
               {!publicKey ? (
                 <div className="mt-5 rounded-2xl border-l-4 border-[#F97316] bg-[#FFF7ED] p-4 text-sm font-bold">
-                  El pago de prueba aún no está configurado. Agrega una NEXT_PUBLIC_MP_PUBLIC_KEY de TEST.
+                  El pago en línea no está disponible en este momento. Intenta nuevamente más tarde.
                 </div>
               ) : null}
               <button

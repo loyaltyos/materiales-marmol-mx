@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // Never trust event fields: retrieve the payment with the private TEST token.
+    // Never trust event fields: retrieve the payment with the private server credential.
     const payment = await getMercadoPagoPaymentClient().get({ id: paymentId });
     logPayment("payment_webhook", payment);
     return NextResponse.json({ received: true });

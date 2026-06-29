@@ -1,9 +1,10 @@
 import { MercadoPagoConfig, Payment } from "mercadopago";
+import { detectMercadoPagoMode } from "@/lib/mercadopago-credentials";
 
 export function getMercadoPagoPaymentClient() {
   const accessToken = process.env.MP_ACCESS_TOKEN?.trim();
-  if (!accessToken || !accessToken.startsWith("TEST-")) {
-    throw new Error("Mercado Pago TEST no está configurado.");
+  if (!accessToken || !detectMercadoPagoMode(accessToken)) {
+    throw new Error("Mercado Pago no está configurado.");
   }
 
   return new Payment(

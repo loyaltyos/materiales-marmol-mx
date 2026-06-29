@@ -2,6 +2,7 @@
 
 Product photographs are stored locally and used under their respective open licenses.
 
+- Compra mínima: bellaellaboutique, “Credit Card Processing - Retail”, CC BY-SA 2.0, via Openverse/Flickr.
 - Cemento gris: Ivan Radic, “Close up of stacked cement bags”, CC BY 2.0, via Openverse/Flickr.
 - Cemento blanco: “Portland Cement Bags”, public domain, via Wikimedia Commons.
 - Ladrillo rojo: Mehraz Morshed, “A large pile of red clay bricks”, CC0, via Openverse/Public Domain Image Archive.

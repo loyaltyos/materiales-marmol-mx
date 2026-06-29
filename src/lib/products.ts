@@ -13,6 +13,19 @@ export type Product = {
 
 export const products: Product[] = [
   {
+    id: "compra-minima-produccion",
+    name: "Compra mínima de prueba",
+    category: "Prueba",
+    price: 100,
+    unit: "compra",
+    step: 1,
+    exampleQuantity: 1,
+    description:
+      "Producto utilizado para validar la integración de Mercado Pago en producción.",
+    image: "/products/compra-minima.jpg",
+    imagePosition: "50% 50%",
+  },
+  {
     id: "cemento-gris-50kg",
     name: "Cemento Gris 50kg",
     category: "Cementos",
