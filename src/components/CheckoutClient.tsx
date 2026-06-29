@@ -130,9 +130,9 @@ export function CheckoutClient({ publicKey, mode }: CheckoutClientProps) {
         </div>
         {mode === "sandbox" ? (
           <p className="inline-flex w-fit rounded-xl border border-[#F97316]/20 bg-[#FFF7ED] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#C2410C]">Entorno de prueba · Sin cargos reales</p>
-        ) : (
+        ) : mode === "production" ? (
           <p className="inline-flex w-fit rounded-xl border border-emerald-600/15 bg-emerald-50 px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700">Pago seguro · Mercado Pago</p>
-        )}
+        ) : null}
       </div>
 
       <div className="mt-8 grid gap-7 lg:grid-cols-[minmax(0,1fr)_380px]">
