@@ -113,44 +113,44 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
   };
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div>
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-[#F97316]">Checkout seguro</p>
-        <h1 className="mt-3 text-3xl font-black uppercase text-[#2B2B2B] sm:text-4xl">Finalizar compra</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-[#4A4A4A]">
+    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+        <p className="text-xs font-black uppercase tracking-[0.22em] text-[#F97316]">Checkout seguro</p>
+        <h1 className="mt-3 text-3xl font-black uppercase tracking-[-0.03em] text-[#242424] sm:text-4xl">Finalizar compra</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-[#626262]">
           Captura tus datos de entrega y paga sin salir de esta página mediante Mercado Pago.
         </p>
-        <p className="mt-3 inline-flex rounded-full bg-[#FFF7ED] px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-[#C2410C]">
-          Entorno de prueba · No se realizan cargos reales
-        </p>
+        </div>
+        <p className="inline-flex w-fit rounded-xl border border-[#F97316]/20 bg-[#FFF7ED] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#C2410C]">Sandbox · Sin cargos reales</p>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_380px]">
-        <section className="rounded-3xl border border-black/10 bg-white p-5 shadow-sm sm:p-7">
+      <div className="mt-8 grid gap-7 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <section className="premium-panel rounded-[1.75rem] p-5 sm:p-8">
           {!quote ? (
             <form onSubmit={preparePayment}>
-              <h2 className="text-xl font-black uppercase text-[#2B2B2B]">Datos del cliente</h2>
+              <div className="border-b border-black/8 pb-5"><p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#F97316]">Paso 1 de 2</p><h2 className="mt-2 text-xl font-black uppercase text-[#242424]">Datos de entrega</h2></div>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 {fields.map((field) => (
                   <label key={field.name} className="block">
-                    <span className="text-xs font-black uppercase tracking-[0.16em] text-[#4A4A4A]">{field.label}</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.14em] text-[#555]">{field.label}</span>
                     <input
                       required
                       name={field.name}
                       type={field.type}
                       autoComplete={field.autoComplete}
-                      className="mt-2 h-12 w-full rounded-2xl border border-[#CFCFCF] bg-[#F5F5F5] px-4 font-semibold outline-none transition focus:border-[#F97316] focus:bg-white"
+                      className="mt-2 h-12 w-full rounded-xl border border-black/10 bg-[#F7F6F3] px-4 text-sm font-semibold outline-none transition focus:border-[#F97316] focus:bg-white focus:shadow-[0_0_0_4px_rgba(249,115,22,0.1)]"
                     />
                   </label>
                 ))}
               </div>
               <label className="mt-5 block">
-                <span className="text-xs font-black uppercase tracking-[0.16em] text-[#4A4A4A]">Comentarios adicionales</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.14em] text-[#555]">Comentarios adicionales</span>
                 <textarea
                   name="comments"
                   rows={4}
                   maxLength={500}
-                  className="mt-2 w-full rounded-2xl border border-[#CFCFCF] bg-[#F5F5F5] px-4 py-3 font-semibold outline-none transition focus:border-[#F97316] focus:bg-white"
+                  className="mt-2 w-full rounded-xl border border-black/10 bg-[#F7F6F3] px-4 py-3 text-sm font-semibold outline-none transition focus:border-[#F97316] focus:bg-white focus:shadow-[0_0_0_4px_rgba(249,115,22,0.1)]"
                 />
               </label>
               {!publicKey ? (
@@ -161,7 +161,7 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
               <button
                 type="submit"
                 disabled={!publicKey || items.length === 0 || isPreparing}
-                className="mt-6 min-h-12 w-full rounded-full bg-[#F97316] px-6 text-sm font-black uppercase tracking-[0.1em] text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white disabled:cursor-not-allowed disabled:bg-[#D8D8D8] disabled:text-[#7A7A7A]"
+                className="premium-button mt-6 min-h-13 w-full rounded-xl bg-[#F97316] px-6 text-xs font-black uppercase tracking-[0.11em] text-[#242424] transition duration-300 hover:-translate-y-0.5 hover:bg-[#242424] hover:text-white disabled:cursor-not-allowed disabled:bg-[#D8D8D8] disabled:text-[#7A7A7A] disabled:shadow-none"
               >
                 {isPreparing ? "Preparando pago..." : "Continuar al pago"}
               </button>
@@ -170,13 +170,13 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
             <div>
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#F97316]">Pago con Mercado Pago</p>
-                  <h2 className="mt-2 text-xl font-black uppercase text-[#2B2B2B]">Total: {formatCurrency(quote.amount)}</h2>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#F97316]">Paso 2 de 2 · Pago con Mercado Pago</p>
+                  <h2 className="mt-2 text-xl font-black uppercase text-[#242424]">Total: {formatCurrency(quote.amount)}</h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => { setQuote(null); setMessage(""); }}
-                  className="rounded-full border border-[#CFCFCF] px-4 py-2 text-xs font-black uppercase tracking-[0.1em]"
+                  className="rounded-xl border border-black/10 bg-[#F7F6F3] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.1em] transition hover:bg-[#E9E7E2]"
                 >
                   Editar datos
                 </button>
@@ -186,7 +186,22 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
                   initialization={{ amount: quote.amount, payer: { email: quote.customer.email } }}
                   customization={{
                     paymentMethods: { creditCard: "all", debitCard: "all", maxInstallments: 12 },
-                    visual: { style: { theme: "default" }, defaultPaymentOption: { creditCardForm: true } },
+                    visual: {
+                      style: {
+                        theme: "flat",
+                        customVariables: {
+                          baseColor: "#F97316",
+                          baseColorFirstVariant: "#EA580C",
+                          buttonTextColor: "#242424",
+                          textPrimaryColor: "#242424",
+                          inputBackgroundColor: "#F7F6F3",
+                          formBackgroundColor: "#FFFFFF",
+                          borderRadiusMedium: "12px",
+                          borderRadiusLarge: "14px",
+                        },
+                      },
+                      defaultPaymentOption: { creditCardForm: true },
+                    },
                   }}
                   locale="es-MX"
                   onSubmit={handlePayment}
@@ -203,12 +218,13 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
           ) : null}
         </section>
 
-        <aside className="h-fit rounded-3xl border border-black/10 bg-white p-5 shadow-sm lg:sticky lg:top-36">
-          <h2 className="text-xl font-black uppercase text-[#2B2B2B]">Resumen de productos</h2>
+        <aside className="premium-panel h-fit rounded-[1.75rem] p-5 sm:p-6 lg:sticky lg:top-32">
+          <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#F97316]">Tu pedido</p>
+          <h2 className="mt-2 text-xl font-black uppercase text-[#242424]">Resumen de productos</h2>
           <div className="mt-5 max-h-96 space-y-4 overflow-auto border-y border-[#E5E5E5] py-5">
             {items.length > 0 ? items.map((item) => (
               <div key={item.product.id} className="grid grid-cols-[64px_1fr] gap-3">
-                <div className="relative h-16 overflow-hidden rounded-2xl bg-[#D9D9D9]">
+                <div className="relative h-16 overflow-hidden rounded-xl bg-[#D9D9D9]">
                   <Image src={item.product.image} alt={item.product.name} fill sizes="64px" className="object-cover" style={{ objectPosition: item.product.imagePosition }} />
                 </div>
                 <div className="min-w-0 text-sm">
@@ -219,11 +235,11 @@ export function CheckoutClient({ publicKey }: { publicKey: string | null }) {
               </div>
             )) : <p className="text-sm leading-6 text-[#4A4A4A]">Tu carrito está vacío. Agrega productos para continuar.</p>}
           </div>
-          <div className="mt-5 flex items-center justify-between text-lg font-black">
-            <span>Total</span><span className="text-[#F97316]">{formatCurrency(total)}</span>
+          <div className="mt-5 flex items-end justify-between text-lg font-black">
+            <span className="text-sm text-[#555]">Total</span><span className="text-2xl tracking-tight text-[#242424]">{formatCurrency(total)}</span>
           </div>
           <p className="mt-4 text-xs leading-5 text-[#4A4A4A]">El importe del pago se valida nuevamente en el servidor.</p>
-          <Link href="/carrito" className="mt-5 flex min-h-11 items-center justify-center rounded-full border border-[#CFCFCF] text-sm font-black uppercase tracking-[0.1em] text-[#4A4A4A] transition hover:border-[#F97316] hover:text-[#2B2B2B]">
+          <Link href="/carrito" className="mt-5 flex min-h-11 items-center justify-center rounded-xl border border-black/10 bg-[#F7F6F3] text-[10px] font-black uppercase tracking-[0.1em] text-[#555] transition hover:bg-[#E9E7E2] hover:text-[#242424]">
             Volver al carrito
           </Link>
         </aside>

@@ -1,70 +1,40 @@
 import Link from "next/link";
+import { PhoneIcon, WhatsAppIcon } from "@/components/Icons";
 import { SectionHeader } from "@/components/SectionHeader";
 
 const contacts = [
-  { label: "Telefono", value: "+52 55 7332 8442", href: "tel:+525573328442" },
-  {
-    label: "Correo comercial",
-    value: "ventas@marmolmx.com.mx",
-    href: "mailto:ventas@marmolmx.com.mx",
-  },
-  {
-    label: "Correo general",
-    value: "info@marmolmx.com.mx",
-    href: "mailto:info@marmolmx.com.mx",
-  },
+  { label: "Teléfono", value: "+52 55 7332 8442", href: "tel:+525573328442", kind: "phone" },
+  { label: "WhatsApp", value: "Atención inmediata", href: "https://wa.me/525573328442", kind: "whatsapp" },
+  { label: "Correo comercial", value: "ventas@marmolmx.com.mx", href: "mailto:ventas@marmolmx.com.mx", kind: "email" },
+  { label: "Correo general", value: "info@marmolmx.com.mx", href: "mailto:info@marmolmx.com.mx", kind: "email" },
 ];
 
 export default function ContactoPage() {
   return (
     <main>
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <SectionHeader
-          eyebrow="Contacto"
-          title="Hablemos de tus materiales y entregas"
-          description="Nuestro equipo atiende solicitudes de abastecimiento para construccion, obra civil, remodelacion y compras recurrentes."
-        />
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
+        <SectionHeader eyebrow="Contacto" title="Hablemos de tus materiales y entregas" description="Nuestro equipo atiende abastecimiento para construcción, obra civil, remodelación y compras recurrentes." />
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {contacts.map((contact) => (
-            <a
-              key={contact.href}
-              href={contact.href}
-              className="border border-[#D4D4D4] bg-white p-6 transition hover:border-[#F97316]"
-            >
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#F97316]">
-                {contact.label}
-              </p>
-              <p className="mt-4 break-words text-xl font-black text-[#2B2B2B]">
-                {contact.value}
-              </p>
+            <a key={contact.href} href={contact.href} className="premium-panel group rounded-[1.5rem] p-6 transition duration-300 hover:-translate-y-1 hover:border-black/15 hover:shadow-[0_24px_55px_rgba(30,30,30,.13)]">
+              <div className={`grid h-11 w-11 place-items-center rounded-xl ${contact.kind === "whatsapp" ? "bg-[#25D366] text-white" : "bg-[#242424] text-[#F97316]"}`}>
+                {contact.kind === "whatsapp" ? <WhatsAppIcon className="h-5 w-5" /> : contact.kind === "phone" ? <PhoneIcon className="h-5 w-5" /> : <span className="text-sm font-black">@</span>}
+              </div>
+              <p className="mt-6 text-[10px] font-black uppercase tracking-[0.18em] text-[#F97316]">{contact.label}</p>
+              <p className="mt-2 break-words text-base font-black text-[#242424]">{contact.value}</p>
+              <p className="mt-5 text-[10px] font-black uppercase tracking-[0.1em] text-[#888] transition group-hover:text-[#242424]">Contactar →</p>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="bg-[#2B2B2B] text-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-[#F97316]">
-              Atencion directa
-            </p>
-            <h2 className="mt-3 text-3xl font-black uppercase">
-              Cotiza por telefono, correo o WhatsApp
-            </h2>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-            <Link
-              href="/cotizaciones"
-              className="bg-[#F97316] px-6 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-[#2B2B2B] transition hover:bg-white"
-            >
-              Solicitar cotizacion
-            </Link>
-            <a
-              href="https://wa.me/525573328442"
-              className="border border-white/35 px-6 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-[#F97316] hover:text-[#F97316]"
-            >
-              WhatsApp
-            </a>
+      <section className="relative overflow-hidden bg-[#242424] text-white">
+        <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#F97316]/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+          <div><p className="text-xs font-black uppercase tracking-[0.22em] text-[#F97316]">Atención directa</p><h2 className="mt-3 max-w-2xl text-3xl font-black uppercase tracking-[-0.03em]">Cotiza por teléfono, correo o WhatsApp</h2><p className="mt-4 max-w-xl text-sm leading-7 text-white/55">Cuéntanos qué necesitas y un asesor te ayudará con cantidades, disponibilidad y logística.</p></div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link href="/cotizaciones" className="premium-button inline-flex min-h-12 items-center justify-center rounded-xl bg-[#F97316] px-6 text-xs font-black uppercase tracking-[0.11em] text-[#242424] transition hover:-translate-y-0.5 hover:bg-white">Solicitar cotización</Link>
+            <a href="https://wa.me/525573328442" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/8 px-6 text-xs font-black uppercase tracking-[0.11em] text-white transition hover:-translate-y-0.5 hover:bg-[#25D366] hover:text-[#102018]"><WhatsAppIcon className="h-5 w-5" /> WhatsApp</a>
           </div>
         </div>
       </section>

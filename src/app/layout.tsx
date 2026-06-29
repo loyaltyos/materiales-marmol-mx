@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { CartProvider } from "@/components/CartProvider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { WhatsAppIcon } from "@/components/Icons";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,9 +40,9 @@ export default function RootLayout({
           <a
             href="https://wa.me/525573328442"
             aria-label="Enviar mensaje por WhatsApp"
-            className="fixed bottom-5 right-5 z-50 hidden h-14 w-14 place-items-center rounded-2xl bg-[#F97316] text-lg font-black text-[#2B2B2B] shadow-2xl shadow-black/25 transition hover:scale-105 sm:grid"
+            className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-2xl bg-[#25D366] text-white shadow-[0_16px_35px_rgba(37,211,102,0.35)] ring-4 ring-white/90 transition duration-300 hover:-translate-y-1 hover:scale-105"
           >
-            WA
+            <WhatsAppIcon className="h-7 w-7" />
           </a>
         </CartProvider>
       </body>

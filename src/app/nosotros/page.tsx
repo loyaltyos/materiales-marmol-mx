@@ -22,12 +22,13 @@ const pillars = [
 export default function NosotrosPage() {
   return (
     <main>
-      <section className="bg-[#2B2B2B] text-white">
+      <section className="relative overflow-hidden bg-[#242424] text-white">
+        <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-[#F97316]/10 blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase tracking-[0.24em] text-[#F97316]">
             Ecosistema Marmol MX
           </p>
-          <h1 className="mt-4 max-w-4xl text-4xl font-black uppercase leading-tight sm:text-5xl">
+          <h1 className="mt-4 max-w-4xl text-4xl font-black uppercase leading-[1.05] tracking-[-0.04em] sm:text-5xl">
             Soluciones de suministro con respaldo institucional
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-white/72">
@@ -38,7 +39,7 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-18 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Nosotros"
           title="Compromiso operativo para construir con continuidad"
@@ -46,7 +47,8 @@ export default function NosotrosPage() {
         />
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           {pillars.map((pillar) => (
-            <article key={pillar.title} className="border border-[#D4D4D4] bg-white p-6">
+            <article key={pillar.title} className="premium-panel rounded-[1.5rem] p-7 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_55px_rgba(30,30,30,.12)]">
+              <span className="block h-1 w-8 rounded-full bg-[#F97316]" />
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#F97316]">
                 {pillar.title}
               </p>

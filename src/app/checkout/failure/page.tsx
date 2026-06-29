@@ -7,6 +7,7 @@ export default function CheckoutFailurePage() {
       title="No fue posible completar el pago"
       tone="failure"
       retry
+      whatsapp
       paragraphs={["Puedes intentarlo nuevamente o comunicarte con nosotros."]}
     />
   );
